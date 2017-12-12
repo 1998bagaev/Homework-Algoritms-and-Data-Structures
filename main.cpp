@@ -3,7 +3,7 @@
 #include <sstream>
 #include <fstream>
 #include <ctime>
-#include <Skip-list.h>
+#include <Skiplist.h>
 #include <AVL-tree.h>
 
 
@@ -102,7 +102,7 @@ int main(int argc, char *argv[]) {
     
      //Skip-list tests
 
-    Skip-list<int> skiplist;
+    Skiplist<int> skiplist;
 
     srand(time(0));
 
