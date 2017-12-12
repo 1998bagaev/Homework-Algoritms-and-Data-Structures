@@ -4,9 +4,6 @@
 #include <fstream>
 #include <ctime>
 
-#include "AVL/AVLTree.hpp"
-
-
 
 
 int FindValue(const std::string &str) {
@@ -100,3 +97,70 @@ int main(int argc, char *argv[]) {
     } else {
         std::cout << "Not correct" << std::endl;
     }
+    
+    
+     //Skip-list tests
+
+    Skip-list<int> skiplist;
+
+    srand(time(0));
+
+    while (getline(fileIn, line)) {
+        if (line.find("delete") == 0) {
+             
+                if (!skiplist.Delete(FindValue(line))) {
+                    fileOut << "error" << std::endl;
+                
+            } else {
+                fileOut << "error" << std::endl;
+            }
+        }
+        if (line == "print") {
+            skiplist.PrintInOrderTraversal(fileOut);
+            fileOut << std::endl;
+        }
+        if (line.find("add") == 0) {
+            
+                skiplist.Insert(FindValue(line));
+             else {
+                fileOut << "error" << std::endl;
+            }
+        }
+        if (line.find("search") == 0) {
+            
+                if (!skiplist.Search(FindValue(line))) {
+                    fileOut << "error" << std::endl;
+                
+
+            } else {
+                fileOut << "error" << std::endl;
+            }
+        }
+        if (line == "min") {
+            fileOut << skiplist.Min() << std::endl;
+        }
+        if (line == "max") {
+            fileOut << skiplist.Max() << std::endl;
+        }
+        if (line == " ") {
+            fileOut << "error" << std::endl;
+        }
+    }
+
+    std::cout << "runtime = " << clock()/1000.0 << std::endl;
+
+    fileIn.close();
+    fileOut.close();
+
+    if (FileIsEqual(argv[2], argv[3])) {
+        std::cout << "Correct" << std::endl;
+    } else {
+        std::cout << "Not correct" << std::endl;
+    }
+                
+    
+    
+    
+    
+    
+    
