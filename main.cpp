@@ -3,7 +3,8 @@
 #include <sstream>
 #include <fstream>
 #include <ctime>
-
+#include <Skip-list.h>
+#include <AVL-tree.h>
 
 
 int FindValue(const std::string &str) {
