@@ -3,13 +3,73 @@
 #include <sstream>
 #include <fstream>
 #include <ctime>
-#include <Skiplist.h>
-#include <AVL-tree.h>
 
+#include "AVLTree.h"
+
+
+bool LineIsOkKeyValue(const std::string &str, const std::string &command) {
+    std::istringstream iss(str);
+    std::string tmp;
+
+    iss >> tmp;
+    if (tmp != command) {
+        return false;
+    }
+    tmp.clear();
+    iss >> tmp;
+
+    if (tmp.empty()) {
+        return false;
+    }
+    tmp.clear();
+    iss >> tmp;
+
+    if (tmp.empty()) {
+        return false;
+    }
+
+    tmp.clear();
+    iss >> tmp;
+
+    return tmp.empty();
+}
+
+bool LineIsOkKey(const std::string &str, const std::string &command) {
+    std::istringstream iss(str);
+    std::string tmp;
+
+    iss >> tmp;
+    if (tmp != command) {
+        return false;
+    }
+    tmp.clear();
+    iss >> tmp;
+
+    if (tmp.empty()) {
+        return false;
+    }
+
+    tmp.clear();
+    iss >> tmp;
+
+    return tmp.empty();
+}
+
+int FindKey(const std::string &str) {
+    std::istringstream iss(str);
+    std::string tmp;
+    iss >> tmp;
+    tmp.clear();
+    iss >> tmp;
+    int key = atoi(tmp.c_str());
+    return key;
+}
 
 int FindValue(const std::string &str) {
     std::istringstream iss(str);
     std::string tmp;
+    iss >> tmp;
+    tmp.clear();
     iss >> tmp;
     tmp.clear();
     iss >> tmp;
@@ -48,10 +108,12 @@ int main(int argc, char *argv[]) {
 
     while (getline(fileIn, line)) {
         if (line.find("delete") == 0) {
-             
-                if (!avlTree.Delete(FindValue(line))) {
+            if (LineIsOkKey(line, "delete")) {
+                if (!avlTree.Delete(FindKey(line))) {
                     fileOut << "error" << std::endl;
-                
+                } else {
+                    fileOut << "Ok" << std::endl;
+                }
             } else {
                 fileOut << "error" << std::endl;
             }
@@ -61,18 +123,15 @@ int main(int argc, char *argv[]) {
             fileOut << std::endl;
         }
         if (line.find("add") == 0) {
-            
-                avlTree.Insert(FindValue(line));
-             else {
+            if (LineIsOkKeyValue(line, "add") != 0) {
+                avlTree.Insert(FindKey(line), FindValue(line));
+            } else {
                 fileOut << "error" << std::endl;
             }
         }
         if (line.find("search") == 0) {
-            
-                if (!avlTree.Search(FindValue(line))) {
-                    fileOut << "error" << std::endl;
-                
-
+            if (LineIsOkKey(line, "search") != 0) {
+                fileOut << avlTree.SearchValue(FindKey(line)) << std::endl;
             } else {
                 fileOut << "error" << std::endl;
             }
@@ -90,78 +149,23 @@ int main(int argc, char *argv[]) {
 
     std::cout << "runtime = " << clock()/1000.0 << std::endl;
 
-    fileIn.close();
-    fileOut.close();
-
     if (FileIsEqual(argv[2], argv[3])) {
         std::cout << "Correct" << std::endl;
     } else {
         std::cout << "Not correct" << std::endl;
     }
+
+
+    fileIn.clear();
+    fileIn.seekg(0);
+    fileOut.clear();
+    fileOut.seekp(0);
+
+  
+
     
-    
-     //Skip-list tests
-
-    Skiplist<int> skiplist;
-
-    srand(time(0));
-
-    while (getline(fileIn, line)) {
-        if (line.find("delete") == 0) {
-             
-                if (!skiplist.Delete(FindValue(line))) {
-                    fileOut << "error" << std::endl;
-                
-            } else {
-                fileOut << "error" << std::endl;
-            }
-        }
-        if (line == "print") {
-            skiplist.PrintInOrderTraversal(fileOut);
-            fileOut << std::endl;
-        }
-        if (line.find("add") == 0) {
-            
-                skiplist.Insert(FindValue(line));
-             else {
-                fileOut << "error" << std::endl;
-            }
-        }
-        if (line.find("search") == 0) {
-            
-                if (!skiplist.Search(FindValue(line))) {
-                    fileOut << "error" << std::endl;
-                
-
-            } else {
-                fileOut << "error" << std::endl;
-            }
-        }
-        if (line == "min") {
-            fileOut << skiplist.Min() << std::endl;
-        }
-        if (line == "max") {
-            fileOut << skiplist.Max() << std::endl;
-        }
-        if (line == " ") {
-            fileOut << "error" << std::endl;
-        }
-    }
-
-    std::cout << "runtime = " << clock()/1000.0 << std::endl;
-
-    fileIn.close();
-    fileOut.close();
-
-    if (FileIsEqual(argv[2], argv[3])) {
-        std::cout << "Correct" << std::endl;
-    } else {
-        std::cout << "Not correct" << std::endl;
-    }
-                
-    
-    
-    
+    return 0;
+}
     
     
     
