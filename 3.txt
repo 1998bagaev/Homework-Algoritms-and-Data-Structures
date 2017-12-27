@@ -3,14 +3,12 @@ add 1 54
 add 2 38
 add 3 56
 add 4 34
-print
 add 5 65
 add 6 67
 add 7 9
 add 8 4
 search 2
 search 4
-print
 add 9 6
 add 10 6
 add 11 32
@@ -23,10 +21,8 @@ add 16 12
 add 17 10
 add 18 3
 search 16
-print
 add 19 24
-print
 add 20 15
 add 23 56
 search 20
-print
+
