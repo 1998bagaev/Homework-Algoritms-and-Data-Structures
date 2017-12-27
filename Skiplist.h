@@ -1,313 +1,268 @@
-include <iostream>
+#include <iostream>
 
-template <typename KEY_T, typename DATA_T>
-class SkipList {
-	size_t MaxLevel;
-	double SkipDivisor;
-	struct Pair {
-		KEY_T Key;
-		DATA_T Data;
-		Pair* Previous;
-		Array<Pair*> Next;
-		Pair(const KEY_T& InKey, const DATA_T& InData, Pair* InPrevious, size_t InLevel);
-		Pair(size_t InLevel);
-		~Pair();
-		Pair& operator=(const Pair& InPair);
-		Pair* PreviousOnLevel(size_t InLevel);
-		Pair* NextOnLevel(size_t InLevel);
-	};
-	Pair Start;
-	Pair* NewPrevious(const KEY_T& InKey);
-	Pair* PairByKey(const KEY_T& InKey);
-	size_t NewLevel();
-public:
-	class Iterator {
-		SkipList* CurrentList;
-		Pair* CurrentPair;
-		friend class SkipList<KEY_T, DATA_T>;
-	public:
-		Iterator(const Iterator& InIterator);
-		Iterator(SkipList& InSkipList);
-		operator bool();
-		Iterator& operator++();
-		Iterator& operator--();
-		Iterator operator++(int);
-		Iterator operator--(int);
-		Iterator& operator+=(size_t n);
-		Iterator& operator-=(size_t n);
-		Iterator& operator=(const Iterator& InIterator);
-		Iterator& operator=(const KEY_T& InKey);
-		DATA_T& operator*();
-		void Delete();
-	};
-	SkipList(size_t InNumberOfLanes = 3, double InSkipDivisor = 1.0 / 4.0);
-	~SkipList();
-	Iterator GetBegin();
-	Iterator GetEnd();
-	void Add(const KEY_T& InKey, const DATA_T& InData);
-	void Delete(const KEY_T& InKey);
-	DATA_T& operator[](const KEY_T& InKey);
-	size_t Count();
-	void Clear();
-	Iterator Find(const DATA_T& Unknown);
-	bool IsEmpty();
+const int MAXLEVEL = 20;
+
+struct skiplist_node 
+{
+	explicit skiplist_node(int searchKey);
+	explicit skiplist_node(int key,int value);
+	int key, value;
+	skiplist_node* forwards[MAXLEVEL + 1];
+
 };
 
-template <typename KEY_T, typename DATA_T>
-typename SkipList<KEY_T, DATA_T>::Pair* SkipList<KEY_T, DATA_T>::Pair::PreviousOnLevel(size_t InLevel) {
-	if (!this)
-		return NULL;
-	Pair* Current = Previous;
-	for (; Current && !(Current->Next.Count() >= InLevel + 1); Current = Current->Previous) {}
-	return Current;
+class skiplist 
+{
+
+public:
+
+	skiplist();
+	~skiplist();
+
+	void Add(int key,int value);
+	bool Remove(int searchKey);
+	bool Search(int searchKey);
+	int Max();
+	int Min();
+	void printList(std::ostream &outputstream);
+
+	const int max_level;
+
+private:
+
+	double uniformRandom() 
+	{ return rand() / double(RAND_MAX); }
+
+	int randomLevel();
+	int m_minKey;
+	int m_maxKey;
+	int max_curr_level;
+	skiplist_node* m_pHeader;
+	skiplist_node* m_pTail;
+	
+};
+
+skiplist_node::skiplist_node(int searchKey)
+{
+
+	key = searchKey;
+
+	for (int i = 1; i <= MAXLEVEL; i++) { forwards[i] = nullptr; }
+
 }
 
-template <typename KEY_T, typename DATA_T>
-typename SkipList<KEY_T, DATA_T>::Pair* SkipList<KEY_T, DATA_T>::Pair::NextOnLevel(size_t InLevel) {
-	if (!this)
-		return NULL;
-	Pair* Current = Next[InLevel - 1];
-	for (; Current && !(Current->Next.Count() >= InLevel + 1); Current = Current->Next[InLevel - 1]) {}
-	return Current;
+
+skiplist_node::skiplist_node(int _key,int _value) :key(_key), value(_value) 
+{
+
+	for (int i = 1; i <= MAXLEVEL; i++) { forwards[i] = nullptr; }
+
 }
 
-template <typename KEY_T, typename DATA_T>
-SkipList<KEY_T, DATA_T>::Pair::Pair(const KEY_T& InKey, const DATA_T& InData, SkipList<KEY_T, DATA_T>::Pair* InPrevious, size_t InLevel) :Key(InKey), Data(InData), Previous(InPrevious) {
-	Pair* Current = Previous->Next[0];
-	Next.AddLast(Current);
-	for (size_t Counter = 1; Counter <= InLevel; Counter++) {
-		Current = NextOnLevel(Counter);
-		Next.AddLast(Current);
+skiplist::skiplist() :m_pHeader(nullptr), m_pTail(nullptr),
+max_curr_level(1), max_level(20),
+m_minKey(0), m_maxKey(10000) {
+
+	m_pHeader = new skiplist_node(m_minKey);
+	m_pTail = new skiplist_node(m_maxKey);
+
+	for (int i = 1; i <= MAXLEVEL; i++) { m_pHeader->forwards[i] = m_pTail; }
+
+}
+
+skiplist::~skiplist() 
+{
+
+	skiplist_node* currNode = m_pHeader->forwards[1];
+
+	while (currNode != m_pTail) {
+
+		skiplist_node* tempNode = currNode;
+		currNode = currNode->forwards[1];
+
+		delete tempNode;
 	}
-	Current = Previous;
-	for (size_t Counter = 0; Counter <= InLevel; Counter++)
-		if (Current = PreviousOnLevel(Counter))
-			Current->Next[Counter] = this;
+
+	delete m_pHeader;
+
+	delete m_pTail;
 }
 
-template <typename KEY_T, typename DATA_T>
-SkipList<KEY_T, DATA_T>::Pair::Pair(size_t InLevel) : Previous(NULL) {
-	for (size_t Counter = 0; Counter <= InLevel; Counter++)
-		Next.AddLast(NULL);
-}
+void skiplist::Add(int key,int value)
+{
 
-template <typename KEY_T, typename DATA_T>
-SkipList<KEY_T, DATA_T>::Pair::~Pair() {
-	size_t OurLevel = Next.Count() - 1;
-	Pair* Current = this;
-	for (size_t Counter = 0; Counter <= OurLevel; Counter++)
-		if (Current = PreviousOnLevel(Counter))
-			Current->Next[Counter] = Next[Counter];
-}
+	skiplist_node* update[MAXLEVEL];
+	skiplist_node* currNode = m_pHeader;
 
-template <typename KEY_T, typename DATA_T>
-SkipList<KEY_T, DATA_T>::SkipList(size_t InMaxLevel, double InSkipDivisor) :MaxLevel(InMaxLevel), SkipDivisor(InSkipDivisor), Start(MaxLevel) {}
+	for (int level = max_curr_level; level >= 1; level--) {
 
-template <typename KEY_T, typename DATA_T>
-typename SkipList<KEY_T, DATA_T>::Pair& SkipList<KEY_T, DATA_T>::Pair::operator=(const SkipList<KEY_T, DATA_T>::Pair& InPair) {
-	Key = InPair.Key;
-	Data = InPair.Data;
-	Previous = InPair.Previous;
-	size_t max = Next.Count();
-	for (size_t i; i<max; ++i)
-		Next.AddLast(Next[i]);
-	return *this;
-}
+		while (currNode->forwards[level]->key < key) { currNode = currNode->forwards[level]; }
 
-template <typename KEY_T, typename DATA_T>
-SkipList<KEY_T, DATA_T>::~SkipList() {
-	Clear();
-}
+		update[level] = currNode;
 
-template <typename KEY_T, typename DATA_T>
-typename SkipList<KEY_T, DATA_T>::Pair* SkipList<KEY_T, DATA_T>::NewPrevious(const KEY_T& InKey) {
-	Pair* Previous = &Start;
-	Pair* Current = Start.Next[MaxLevel];
-	for (size_t Counter = MaxLevel; Counter >= 0; Counter--) {
-		while (Current && InKey>Current->Key) {
-			Previous = Current;
-			Current = Current->Next[Counter];
+	}
+
+	currNode = currNode->forwards[1];
+
+	if (currNode->key == key) { currNode->value = value; }
+
+	else {
+
+		int newlevel = randomLevel();
+
+		if (newlevel > max_curr_level) {
+
+			for (int level = max_curr_level + 1; level <= newlevel; level++) { update[level] = m_pHeader; }
+
+			max_curr_level = newlevel;
+
 		}
-		if (!Counter)
-			break;
-		Current = Previous;
-	};
-	return Previous;
-}
 
-template <typename KEY_T, typename DATA_T>
-size_t SkipList<KEY_T, DATA_T>::NewLevel() {
-	size_t Level = 0;
-	while (rand() % 1000<SkipDivisor * 1000 && Level <= MaxLevel)
-		Level++;
-	return Level;
-}
+		currNode = new skiplist_node(key,value);
 
-template <typename KEY_T, typename DATA_T>
-void SkipList<KEY_T, DATA_T>::Add(const KEY_T& InKey, const DATA_T& InData) {
-	Pair* Previous = NewPrevious(InKey);
-	Pair* Next = Previous->Next[0];
-	if (Next && Next->Key == InKey)
-		throw String("Not unique key!");
-	new Pair(InKey, InData, Previous, NewLevel());
-}
+		for (int lv = 1; lv <= max_curr_level; lv++) {
 
-template <typename KEY_T, typename DATA_T>
-typename SkipList<KEY_T, DATA_T>::Pair* SkipList<KEY_T, DATA_T>::PairByKey(const KEY_T& InKey) {
-	Pair* Current = NewPrevious(InKey);
-	if ((Current = Current->Next[0]) && Current->Key == InKey)
-		return Current;
-	throw String("No pair for this key!");
-}
+			currNode->forwards[lv] = update[lv]->forwards[lv];
+			update[lv]->forwards[lv] = currNode;
 
-template <typename KEY_T, typename DATA_T>
-void SkipList<KEY_T, DATA_T>::Delete(const KEY_T& InKey) {
-	if (IsEmpty())
-		throw String("There is empty list!");
-	delete PairByKey(InKey);
-}
-
-template <typename KEY_T, typename DATA_T>
-DATA_T& SkipList<KEY_T, DATA_T>::operator[](const KEY_T& InKey) {
-	if (IsEmpty())
-		throw String("List is empty!");
-	return PairByKey(InKey)->Data;
-}
-
-template <typename KEY_T, typename DATA_T>
-size_t SkipList<KEY_T, DATA_T>::Count() {
-	if (IsEmpty())
-		return 0;
-	Pair* Next = Start.Next[0];
-	size_t n = 1;
-	while (Next = Next->Next[0])
-		n++;
-	return n;
-}
-
-template <typename KEY_T, typename DATA_T>
-void SkipList<KEY_T, DATA_T>::Clear() {
-	Pair* Current = Start.Next[1];
-	Pair* Previous = NULL;
-	while (Current) {
-		Current->Previous = NULL;
-		Previous = Current;
-		Current = Current->Next[0];
-		delete Previous;
+		}
 	}
-	for (size_t i = 0; i <= Start.Next.Count() - 1; i++)
-		Start.Next[i] = NULL;
 }
 
-template <typename KEY_T, typename DATA_T>
-SkipList<KEY_T, DATA_T>::Iterator::Iterator(const SkipList<KEY_T, DATA_T>::Iterator& InIterator) :CurrentList(InIterator.CurrentList), CurrentPair(InIterator.CurrentPair) {}
 
-template <typename KEY_T, typename DATA_T>
-SkipList<KEY_T, DATA_T>::Iterator::Iterator(SkipList<KEY_T, DATA_T>& InSkipList) : CurrentList(&InSkipList), CurrentPair(InSkipList.Start.Next[0]) {}
+bool skiplist::Remove(int searchKey) 
+    {
 
-template <typename KEY_T, typename DATA_T>
-SkipList<KEY_T, DATA_T>::Iterator::operator bool() {
-	return CurrentList && CurrentPair;
-}
+	if (!Search(searchKey)) { return false; }
 
-template <typename KEY_T, typename DATA_T>
-typename SkipList<KEY_T, DATA_T>::Iterator& SkipList<KEY_T, DATA_T>::Iterator::operator++() {
-	if (CurrentPair)
-		CurrentPair = CurrentPair->Next[0];
-	return *this;
-}
+	skiplist_node* update[MAXLEVEL];
+	skiplist_node* currNode = m_pHeader;
 
-template <typename KEY_T, typename DATA_T>
-typename SkipList<KEY_T, DATA_T>::Iterator& SkipList<KEY_T, DATA_T>::Iterator::operator--() {
-	if (CurrentPair && CurrentPair != CurrentList->Start.Next[0])
-		CurrentPair = CurrentPair->Previous;
-	else
-		CurrentPair = NULL;
-	return *this;
-}
+	for (int level = max_curr_level; level >= 1; level--) 
+	{
 
-template <typename KEY_T, typename DATA_T>
-typename SkipList<KEY_T, DATA_T>::Iterator SkipList<KEY_T, DATA_T>::Iterator::operator++(int) {
-	Iterator Old(*this);
-	++*this;
-	return Old;
-}
+		while (currNode->forwards[level]->key < searchKey) 
+		{ 
+			currNode = currNode->forwards[level]; 
+		}
 
-template <typename KEY_T, typename DATA_T>
-typename SkipList<KEY_T, DATA_T>::Iterator SkipList<KEY_T, DATA_T>::Iterator::operator--(int) {
-	Iterator Old(*this);
-	--*this;
-	return Old;
-}
+		update[level] = currNode;
 
-template <typename KEY_T, typename DATA_T>
-typename SkipList<KEY_T, DATA_T>::Iterator& SkipList<KEY_T, DATA_T>::Iterator::operator=(const SkipList<KEY_T, DATA_T>::Iterator& InIterator) {
-	CurrentList = InIterator.CurrentList;
-	CurrentPair = InIterator.CurrentPair;
-	return *this;
-}
+	}
 
-template <typename KEY_T, typename DATA_T>
-typename SkipList<KEY_T, DATA_T>::Iterator& SkipList<KEY_T, DATA_T>::Iterator::operator=(const KEY_T& InKey) {
-	CurrentPair = CurrentList->PairByKey(InKey);
-	return *this;
-}
+	currNode = currNode->forwards[1];
 
-template <typename KEY_T, typename DATA_T>
-DATA_T& SkipList<KEY_T, DATA_T>::Iterator::operator*() {
-	if (!*this)
-		throw String("Reading from bad iterator!");
-	return CurrentPair->Data;
-}
+	if (currNode->key == searchKey) 
+	{
 
-template <typename KEY_T, typename DATA_T>
-void SkipList<KEY_T, DATA_T>::Iterator::Delete() {
-	if (!*this)
-		throw String("Deleting data of bad iterator!");
-	delete CurrentPair;
-	CurrentPair = NULL;
-}
+		for (int lv = 1; lv <= max_curr_level; lv++)
+		{
 
-template <typename KEY_T, typename DATA_T>
-typename SkipList<KEY_T, DATA_T>::Iterator& SkipList<KEY_T, DATA_T>::Iterator::operator+=(size_t n) {
-	for (size_t Counter = 0; Counter<n && CurrentPair; Counter++)
-		CurrentPair = CurrentPair->Next[0];
-	return *this;
-}
+			if (update[lv]->forwards[lv] != currNode) { break; }
 
-template <typename KEY_T, typename DATA_T>
-typename SkipList<KEY_T, DATA_T>::Iterator& SkipList<KEY_T, DATA_T>::Iterator::operator-=(size_t n) {
-	for (size_t Counter = 0; Counter<n && CurrentPair; Counter++)
-		CurrentPair = CurrentPair->Previous;
-	if (CurrentPair == &CurrentList->Start)
-		return *this;
-}
+			update[lv]->forwards[lv] = currNode->forwards[lv];
 
-template <typename KEY_T, typename DATA_T>
-typename SkipList<KEY_T, DATA_T>::Iterator SkipList<KEY_T, DATA_T>::GetBegin() {
-	return Iterator(*this);
-}
+		}
 
-template <typename KEY_T, typename DATA_T>
-typename SkipList<KEY_T, DATA_T>::Iterator SkipList<KEY_T, DATA_T>::GetEnd() {
-	Iterator ReturnValue(*this);
-	ReturnValue += ReturnValue.CurrentList->Count() - 1;
-	return ReturnValue;
-}
+		delete currNode;
 
-template <typename KEY_T, typename DATA_T>
-typename SkipList<KEY_T, DATA_T>::Iterator SkipList<KEY_T, DATA_T>::Find(const DATA_T& Unknown) {
-	Iterator Result(*this);
-	while (Result && !(*Result == Unknown))
-		++Result;
-	return Result;
-}
 
-template <typename KEY_T, typename DATA_T>
-bool SkipList<KEY_T, DATA_T>::IsEmpty() {
-	typename Array<Pair*>::Iterator i(Start.Next);
-	while (i)
-		if (*i++)
-			return false;
+		while (max_curr_level > 1 && m_pHeader->forwards[max_curr_level] == nullptr) { max_curr_level--; }
+
+	}
+
 	return true;
 }
+
+
+bool skiplist::Search(int searchKey)
+{
+
+	skiplist_node* currNode = m_pHeader;
+
+	for (int level = max_curr_level; level >= 1; level--) 
+	{
+
+		while (currNode->forwards[level]->key < searchKey) 
+		{ currNode = currNode->forwards[level]; }
+
+	}
+
+	currNode = currNode->forwards[1];
+
+	return currNode->key == searchKey;
+
+}
+
+
+int skiplist::randomLevel() 
+{
+
+	int level = 1;
+	double p = 0.5;
+
+	while (uniformRandom() < p && level < MAXLEVEL) 
+	{ level++; }
+
+	return level;
+
+}
+
+void skiplist::printList(std::ostream &outputstream) 
+{
+
+	skiplist_node* currNode = m_pHeader->forwards[1];
+
+	while (currNode != m_pTail) 
+	{
+
+		outputstream << currNode->value << " ";
+		currNode = currNode->forwards[1];
+
+	}
+	//outputstream << std::endl;
+}
+
+int skiplist::Max() 
+{
+
+	int max = -1;
+	skiplist_node* currNode = m_pHeader;
+
+	for (int level = max_curr_level; level >= 1; level--)
+	{
+
+		while (currNode->forwards[level]) 
+		{
+
+			if (currNode->value > max) { max = currNode->value; }
+		}
+	}
+
+	return max;
+
+};
+
+int skiplist::Min() 
+{
+
+	int min = INT_MAX;
+	skiplist_node* currNode = m_pHeader;
+
+	for (int level = max_curr_level; level >= 1; level--) 
+	{
+
+		while (currNode->forwards[level]) 
+		{
+
+			if (currNode->value < min) { min = currNode->value; }
+		}
+	}
+
+	return  min;
+
+};
+
+
+
+
