@@ -211,57 +211,48 @@ int skiplist::randomLevel()
 void skiplist::printList(std::ostream &outputstream) 
 {
 
-	skiplist_node* currNode = m_pHeader->forwards[1];
-
-	while (currNode != m_pTail) 
+	for (int lv = max_curr_level; lv >= 1; --lv) 
 	{
 
-		outputstream << currNode->value << " ";
-		currNode = currNode->forwards[1];
+		skiplist_node* currNode = m_pHeader;
 
+		while (currNode->forwards[lv] != m_pTail)
+		{
+
+			currNode = currNode->forwards[lv];
+			outputstream << currNode->value << " ";
+		}
+		outputstream << std::endl;
 	}
-	//outputstream << std::endl;
+
 }
 
 int skiplist::Max() 
 {
 
-	int max = -1;
 	skiplist_node* currNode = m_pHeader;
 
-	for (int level = max_curr_level; level >= 1; level--)
+	while (currNode->forwards[1]->forwards[1] != m_pTail)
 	{
 
-		while (currNode->forwards[level]) 
-		{
+		currNode = currNode->forwards[1];
 
-			if (currNode->value > max) { max = currNode->value; }
-		}
 	}
 
-	return max;
+	return currNode->forwards[1]->value;
+
 
 };
 
 int skiplist::Min() 
 {
 
-	int min = INT_MAX;
-	skiplist_node* currNode = m_pHeader;
-
-	for (int level = max_curr_level; level >= 1; level--) 
-	{
-
-		while (currNode->forwards[level]) 
-		{
-
-			if (currNode->value < min) { min = currNode->value; }
-		}
-	}
-
-	return  min;
+	return  m_pHeader->forwards[1]->value;
 
 };
+
+
+
 
 
 
