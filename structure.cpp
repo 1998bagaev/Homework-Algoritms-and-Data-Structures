@@ -47,13 +47,16 @@ bool FileIsEqual(const std::string &firstFileName, const std::string &secondFile
 }
 
 
-int main() 
+int main(int argc, char* argv[]) 
 {
-	
+	if (argc < 4)
+	{
+		return 0;
+	}
 	std::string line;
-	std::ifstream fileIn("input.txt");
+	std::ifstream fileIn(argv[0]);
 	assert(fileIn);
-	std::ofstream fileOut("output.txt");
+	std::ofstream fileOut(argv[1]);
 	assert(fileOut);
 
 	AVLTree avlTree;
@@ -105,7 +108,7 @@ int main()
 
 	std::cout << "runtime = " << clock() / 1000.0 << std::endl;
 
-	if (FileIsEqual("output.txt", "truetest.txt")) 
+	if (FileIsEqual(argv[1], argv[2])) 
 	{
 		std::cout << "Correct" << std::endl;
 	}
@@ -168,7 +171,7 @@ int main()
 
 	std::cout << "runtime = " << clock() / 1000.0 << std::endl;
 
-	if (FileIsEqual("output.txt", "truetest.txt"))
+	if (FileIsEqual(argv[1], argv[2]))
 	{
 		std::cout << "Correct" << std::endl;
 	}
