@@ -29,35 +29,25 @@ delete 2
 delete 3
 delete 4
 print
+add 20 105
+add 21 78
+add 22 56
 delete 5
 delete 6
 delete 4
 delete 7
 delete 8
 print
+add 23 56 
+add 24 45
 delete 10
 delete 11
 delete 12
 delete 13
 print
 delete 14
-add 20 107
-add 21 26
-add 22 107
-add 23 26
-add 24 107
-add 25 26
-add 26 107
-add 27 26
-dalete 17
-delete 19
-print
-add 28 107
-add 29 26
-delete 22
-add 30 107
-add 31 26
-print
+
+
 
 
 
