@@ -49,15 +49,18 @@ bool FileIsEqual(const std::string &firstFileName, const std::string &secondFile
 
 int main(int argc, char* argv[]) 
 {
-	if (argc < 4)
+	if (argc < 6)
 	{
 		return 0;
 	}
 	std::string line;
-	std::ifstream fileIn(argv[0]);
+	std::ifstream fileIn(argv[1]);
 	assert(fileIn);
-	std::ofstream fileOut(argv[1]);
-	assert(fileOut);
+	std::ofstream fileOutAVL(argv[2]);
+	assert(fileOutAVL);
+	std::ofstream fileOutSkip(argv[3]);
+	assert(fileOutSkip);
+	
 
 	AVLTree avlTree;
 
@@ -70,19 +73,19 @@ int main(int argc, char* argv[])
 						
 				if (!avlTree.Delete(FindKey(line))) 
 				{
-					fileOut << "error" << std::endl;
+					fileOutAVL << "error" << std::endl;
 				}
 				else
 				{
-					fileOut << "Ok" << std::endl;
+					fileOutAVL << "Ok" << std::endl;
 				}
 
 			
 		}
 		if (line == "print") 
 		{
-			avlTree.PrintPreOrder(fileOut);
-			fileOut << std::endl;
+			avlTree.PrintPreOrder(fileOutAVL);
+			fileOutAVL << std::endl;
 		}
 		if (line.find("add") == 0) 
 		{
@@ -90,25 +93,25 @@ int main(int argc, char* argv[])
 		}
 		if (line.find("search") == 0)
 		{
-			fileOut << avlTree.Search(FindKey(line)) << std::endl;
+			fileOutAVL << avlTree.Search(FindKey(line)) << std::endl;
 		}
 		if (line == "min")
 		{
-			fileOut << avlTree.Min() << std::endl;
+			fileOutAVL << avlTree.Min() << std::endl;
 		}
 		if (line == "max") 
 		{
-			fileOut << avlTree.Max() << std::endl;
+			fileOutAVL << avlTree.Max() << std::endl;
 		}
 		if (line == " ") 
 		{
-			fileOut << "error" << std::endl;
+			fileOutAVL << "error" << std::endl;
 		}
 	}
 
 	std::cout << "runtime = " << clock() / 1000.0 << std::endl;
 
-	if (FileIsEqual(argv[1], argv[2])) 
+	if (FileIsEqual(argv[2], argv[4])) 
 	{
 		std::cout << "Correct" << std::endl;
 	}
@@ -117,12 +120,11 @@ int main(int argc, char* argv[])
 		std::cout << "Not correct" << std::endl;
 	}
 
-
+	
 	fileIn.clear();
 	fileIn.seekg(0);
-	fileOut.clear();
-	fileOut.seekp(0);
-
+	
+	
 	skiplist object;
 
 	srand(time(0));
@@ -134,18 +136,18 @@ int main(int argc, char* argv[])
 			
 				if (!object.Remove(FindKey(line))) 
 				{
-					fileOut << "error" << std::endl;
+					fileOutSkip << "error" << std::endl;
 				}
 				else 
 				{
-					fileOut << "Ok" << std::endl;
+					fileOutSkip << "Ok" << std::endl;
 				}
 			
 		}
 		if (line == "print") 
 		{
-			object.printList(fileOut);
-			fileOut << std::endl;
+			object.printList(fileOutSkip);
+			fileOutSkip << std::endl;
 		}
 		if (line.find("add") == 0)
 		{
@@ -153,25 +155,25 @@ int main(int argc, char* argv[])
 		}
 		if (line.find("search") == 0)
 		{
-			fileOut << object.Search(FindKey(line)) << std::endl;
+			fileOutSkip << object.Search(FindKey(line)) << std::endl;
 		}
 		if (line == "min") 
 		{
-			fileOut << object.Min() << std::endl;
+			fileOutSkip << object.Min() << std::endl;
 		}
 		if (line == "max")
 		{
-			fileOut << object.Max() << std::endl;
+			fileOutSkip << object.Max() << std::endl;
 		}
 		if (line == " ")
 		{
-			fileOut << "error" << std::endl;
+			fileOutSkip << "error" << std::endl;
 		}
 	}
 
 	std::cout << "runtime = " << clock() / 1000.0 << std::endl;
 
-	if (FileIsEqual(argv[1], argv[2]))
+	if (FileIsEqual(argv[3], argv[5]))
 	{
 		std::cout << "Correct" << std::endl;
 	}
@@ -179,9 +181,10 @@ int main(int argc, char* argv[])
 	{
 		std::cout << "Not correct" << std::endl;
 	}
-
+	
 	fileIn.close();
-	fileOut.close();
+	fileOutAVL.close();
+	fileOutSkip.close();
 
 	system("pause");
 	return 0;
