@@ -1,0 +1,32 @@
+add 0 11
+add 1 54
+add 2 2
+add 3 56
+max
+print
+add 5 65
+min
+add 7 9
+add 8 4
+print
+add 9 679
+max
+add 11 32
+add 12 21
+min
+print
+add 14 98
+add 15 76
+add 16 12
+add 17 10
+add 18 3
+print
+add 19 24
+print
+add 20 2417
+max
+print
+add 21 15
+add 1
+min
+print
