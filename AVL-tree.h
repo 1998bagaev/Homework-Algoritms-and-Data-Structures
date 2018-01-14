@@ -59,7 +59,10 @@ AVLTree::~AVLTree() {
 int AVLTree::Min()
 {
 	AVLNode *N = root;
-	while (N->left != NIL) N = N->left;
+	while (N->left != NIL)
+	{
+		N = N->left;
+	}
 	return N->value;
 }
 
