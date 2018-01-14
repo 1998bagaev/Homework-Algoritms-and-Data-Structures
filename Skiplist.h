@@ -232,8 +232,7 @@ int skiplist::Max()
 
 	skiplist_node* currNode = m_pHeader;
 
-	while (currNode->forwards[1]->forwards[1] != m_pTail)
-	{
+	while (currNode->forwards[1]->forwards[1] != m_pTail) {
 
 		currNode = currNode->forwards[1];
 
@@ -250,10 +249,6 @@ int skiplist::Min()
 	return  m_pHeader->forwards[1]->value;
 
 };
-
-
-
-
 
 
 
