@@ -8,6 +8,9 @@ add 7 159
 add 8 377
 add 9 329
 add 10 26
+min
+max
+print
 add 11 589
 add 12 553
 add 13 566
@@ -15,6 +18,9 @@ add 14 24
 add 15 125
 add 16 442
 add 17 390
+min
+max
+print
 add 18 460
 add 19 435
 add 20 38
@@ -22,6 +28,9 @@ add 21 192
 add 22 142
 add 23 128
 add 24 67
+min
+max
+print
 add 25 223
 add 26 28
 add 27 370
@@ -38,6 +47,9 @@ add 37 323
 add 38 381
 add 39 523
 add 40 2
+min
+max
+print
 add 41 452
 add 42 611
 add 43 464
@@ -47,6 +59,9 @@ add 46 80
 add 47 477
 add 48 353
 add 49 680
+min
+max
+print
 add 50 555
 add 51 479
 add 52 726
@@ -91,15 +106,24 @@ add 90 543
 add 91 382
 add 92 587
 add 93 201
+min
+max
+print
 add 94 671
 add 95 527
 add 96 231
+min
+max
+print
 add 97 446
 add 98 137
 add 99 132
 add 100 164
 add 101 320
 add 102 620
+min
+max
+print
 add 103 452
 add 104 503
 add 105 436
@@ -112,6 +136,9 @@ add 111 644
 add 112 436
 add 113 282
 add 114 37
+min
+max
+print
 add 115 302
 add 116 200
 add 117 221
@@ -124,9 +151,15 @@ add 123 702
 add 124 100
 add 125 537
 add 126 275
+min
+max
+print
 add 127 552
 add 128 9
 add 129 649
+min
+max
+print
 add 130 98
 add 131 621
 add 132 284
@@ -195,12 +228,18 @@ add 194 545
 add 195 619
 add 196 579
 add 197 86
+min
+max
+print
 add 198 312
 add 199 282
 add 200 282
 add 201 737
 add 202 56
 add 203 693
+min
+max
+print
 add 204 484
 add 205 435
 add 206 30
@@ -220,14 +259,23 @@ add 219 393
 add 220 670
 add 221 150
 add 222 142
+min
+max
+print
 add 223 292
 add 224 93
 add 225 132
+min
+max
+print
 add 226 680
 add 227 450
 add 228 742
 add 229 391
 add 230 493
+min
+max
+print
 add 231 477
 add 232 255
 add 233 270
@@ -237,20 +285,32 @@ add 236 656
 add 237 438
 add 238 640
 add 239 629
+min
+max
+print
 add 240 59
 add 241 548
 add 242 405
+min
+max
+print
 add 243 211
 add 244 445
 add 245 241
 add 246 387
 add 247 546
+min
+max
+print
 add 248 156
 add 249 353
 add 250 347
 add 251 180
 add 252 224
 add 253 661
+min
+max
+print
 add 254 354
 add 255 132
 add 256 595
@@ -260,6 +320,9 @@ add 259 352
 add 260 498
 add 261 322
 add 262 135
+min
+max
+print
 add 263 157
 add 264 592
 add 265 521
@@ -306,6 +369,9 @@ add 305 512
 add 306 420
 add 307 248
 add 308 327
+min
+max
+print
 add 309 232
 add 310 387
 add 311 665
@@ -362,6 +428,9 @@ add 361 206
 add 362 404
 add 363 470
 add 364 523
+min
+max
+print
 add 365 149
 add 366 354
 add 367 738
@@ -374,6 +443,9 @@ add 373 580
 add 374 385
 add 375 263
 add 376 24
+min
+max
+print
 add 377 239
 add 378 302
 add 379 184
@@ -920,1070 +992,9 @@ add 919 123
 add 920 713
 add 921 134
 add 922 283
+min
+max
+print
 add 923 619
 add 924 36
 add 925 80
-add 926 240
-add 927 41
-add 928 188
-add 929 55
-add 930 642
-add 931 402
-add 932 215
-add 933 123
-add 934 471
-add 935 167
-add 936 409
-add 937 283
-add 938 452
-add 939 84
-add 940 115
-add 941 212
-add 942 155
-add 943 442
-add 944 146
-add 945 730
-add 946 331
-add 947 20
-add 948 550
-add 949 125
-add 950 23
-add 951 166
-add 952 190
-add 953 229
-add 954 269
-add 955 696
-add 956 457
-add 957 587
-add 958 643
-add 959 424
-add 960 93
-add 961 558
-add 962 678
-add 963 172
-add 964 585
-add 965 401
-add 966 493
-add 967 38
-add 968 299
-add 969 257
-add 970 469
-add 971 700
-add 972 143
-add 973 237
-add 974 8
-add 975 502
-add 976 721
-add 977 584
-add 978 474
-add 979 48
-add 980 492
-add 981 220
-add 982 233
-add 983 63
-add 984 32
-add 985 476
-add 986 213
-add 987 729
-add 988 596
-add 989 517
-add 990 453
-add 991 565
-add 992 383
-add 993 29
-add 994 734
-add 995 300
-add 996 276
-add 997 725
-add 998 599
-add 999 488
-has 318
-has 395
-has 623
-has 395
-has 536
-has 88
-has 32
-has 935
-has 297
-has 686
-has 965
-has 828
-has 152
-has 800
-has 907
-has 827
-has 437
-has 828
-has 189
-has 147
-has 252
-has 682
-has 247
-has 706
-has 734
-has 870
-has 428
-has 153
-has 330
-has 606
-has 304
-has 994
-has 978
-has 980
-has 745
-has 267
-has 672
-has 917
-has 547
-has 953
-has 609
-has 350
-has 683
-has 116
-has 729
-has 780
-has 608
-has 712
-has 131
-has 160
-has 965
-has 543
-has 786
-has 660
-has 404
-has 635
-has 148
-has 915
-has 659
-has 664
-has 659
-has 877
-has 605
-has 690
-has 383
-has 969
-has 848
-has 170
-has 56
-has 640
-has 155
-has 518
-has 281
-has 235
-has 536
-has 901
-has 997
-has 132
-has 976
-has 953
-has 262
-has 714
-has 23
-has 170
-has 640
-has 760
-has 208
-has 319
-has 577
-has 111
-has 120
-has 755
-has 259
-has 881
-has 295
-has 730
-has 743
-has 992
-has 732
-has 758
-has 930
-has 439
-has 657
-has 490
-has 5
-has 447
-has 262
-has 552
-has 124
-has 501
-has 636
-has 16
-has 938
-has 704
-has 403
-has 943
-has 855
-has 436
-has 50
-has 622
-has 762
-has 530
-has 591
-has 943
-has 520
-has 399
-has 260
-has 399
-has 939
-has 805
-has 158
-has 6
-has 399
-has 218
-has 23
-has 822
-has 57
-has 532
-has 165
-has 193
-has 498
-has 655
-has 195
-has 76
-has 474
-has 104
-has 815
-has 553
-has 479
-has 350
-has 874
-has 308
-has 942
-has 110
-has 994
-has 400
-has 846
-has 713
-has 968
-has 605
-has 188
-has 862
-has 612
-has 317
-has 343
-has 630
-has 616
-has 720
-has 681
-has 579
-has 887
-has 324
-has 271
-has 856
-has 124
-has 108
-has 335
-has 515
-has 469
-has 417
-has 582
-has 705
-has 918
-has 589
-has 930
-has 849
-has 63
-has 289
-has 222
-has 622
-has 974
-has 342
-has 563
-has 559
-has 5
-has 635
-has 43
-has 876
-has 732
-has 843
-has 486
-has 95
-has 870
-has 898
-has 461
-has 551
-has 37
-has 86
-has 984
-has 887
-has 66
-has 332
-has 245
-has 551
-has 24
-has 481
-has 942
-has 23
-has 386
-has 493
-has 567
-has 327
-has 499
-has 60
-has 604
-has 545
-has 759
-has 711
-has 851
-has 488
-has 65
-has 457
-has 782
-has 625
-has 929
-has 487
-has 834
-has 21
-has 129
-has 379
-has 812
-has 975
-has 303
-has 334
-has 557
-has 643
-has 98
-has 12
-has 536
-has 523
-has 691
-has 20
-has 491
-has 240
-has 276
-has 160
-has 595
-has 810
-has 295
-has 914
-has 790
-has 325
-has 234
-has 497
-has 822
-has 607
-has 548
-has 618
-has 621
-has 535
-has 646
-has 922
-has 893
-has 8
-has 679
-has 591
-has 24
-has 166
-has 502
-has 959
-has 448
-has 748
-has 176
-has 329
-has 795
-has 46
-has 965
-has 543
-has 349
-has 770
-has 890
-has 25
-has 724
-has 213
-has 588
-has 488
-has 742
-has 805
-has 510
-has 948
-has 96
-has 478
-has 390
-has 1
-has 876
-has 767
-has 126
-has 484
-has 559
-has 683
-has 136
-has 430
-has 308
-has 335
-has 467
-has 42
-has 150
-has 904
-has 700
-has 777
-has 640
-has 5
-has 269
-has 849
-has 643
-has 622
-has 199
-has 681
-has 418
-has 191
-has 848
-has 218
-has 654
-has 552
-has 864
-has 968
-has 359
-has 175
-has 452
-has 28
-has 919
-has 482
-has 982
-has 665
-has 635
-has 461
-has 715
-has 390
-has 744
-has 546
-has 339
-has 836
-has 105
-has 732
-has 309
-has 91
-has 209
-has 539
-has 357
-has 254
-has 569
-has 443
-has 66
-has 369
-has 834
-has 916
-has 775
-has 754
-has 469
-has 498
-has 682
-has 973
-has 453
-has 672
-has 857
-has 159
-has 22
-has 603
-has 215
-has 183
-has 905
-has 808
-has 935
-has 870
-has 851
-has 12
-has 113
-has 921
-has 244
-has 774
-has 759
-has 818
-has 817
-has 198
-has 458
-has 476
-has 416
-has 614
-has 829
-has 717
-has 685
-has 959
-has 919
-has 247
-has 863
-has 364
-has 384
-has 432
-has 873
-has 150
-has 69
-has 604
-has 325
-has 174
-has 348
-has 760
-has 506
-has 195
-has 516
-has 823
-has 804
-has 852
-has 510
-has 694
-has 737
-has 863
-has 157
-has 255
-has 215
-has 381
-has 741
-has 407
-has 773
-has 497
-has 497
-has 945
-has 888
-has 689
-has 8
-has 488
-has 626
-has 680
-has 48
-has 95
-has 705
-has 155
-has 493
-has 643
-has 848
-has 697
-has 968
-has 222
-has 98
-has 7
-has 911
-has 831
-has 449
-has 225
-has 508
-has 998
-has 207
-has 129
-has 217
-has 492
-has 408
-has 661
-has 830
-has 827
-has 676
-has 401
-has 871
-has 816
-has 187
-has 29
-has 197
-has 124
-has 805
-has 416
-has 987
-has 582
-has 370
-has 512
-has 405
-has 517
-has 412
-has 519
-has 310
-has 766
-has 584
-has 664
-has 496
-has 663
-has 181
-has 8
-has 281
-has 497
-has 464
-has 554
-has 685
-has 45
-has 324
-has 665
-has 966
-has 448
-has 824
-has 153
-has 36
-has 69
-has 808
-has 788
-has 27
-has 33
-has 237
-has 925
-has 628
-has 694
-has 722
-has 699
-has 81
-has 888
-has 352
-has 64
-has 243
-has 12
-has 903
-has 208
-has 635
-has 179
-has 747
-has 699
-has 659
-has 251
-has 730
-has 943
-has 258
-has 704
-has 545
-has 956
-has 691
-has 260
-has 484
-has 241
-has 957
-has 795
-has 638
-has 463
-has 427
-has 255
-has 379
-has 585
-has 773
-has 764
-has 474
-has 796
-has 692
-has 261
-has 422
-has 954
-has 543
-has 617
-has 516
-has 855
-has 320
-has 110
-has 129
-has 774
-has 302
-has 292
-has 667
-has 923
-has 149
-has 765
-has 8
-has 820
-has 404
-has 111
-has 106
-has 447
-has 373
-has 441
-has 780
-has 381
-has 799
-has 163
-has 924
-has 894
-has 776
-has 933
-has 251
-has 996
-has 282
-has 590
-has 414
-has 75
-has 742
-has 627
-has 920
-has 847
-has 666
-has 863
-has 162
-has 135
-has 586
-has 455
-has 437
-has 9
-has 756
-has 652
-has 392
-has 582
-has 155
-has 974
-has 582
-has 103
-has 835
-has 136
-has 57
-has 158
-has 185
-has 234
-has 996
-has 368
-has 42
-has 669
-has 641
-has 558
-has 351
-has 932
-has 79
-has 775
-has 189
-has 257
-has 780
-has 508
-has 279
-has 645
-has 793
-has 345
-has 724
-has 915
-has 138
-has 124
-has 541
-has 668
-has 841
-has 307
-has 9
-has 312
-has 238
-has 607
-has 571
-has 763
-has 662
-has 433
-has 865
-has 792
-has 94
-has 916
-has 812
-has 877
-has 656
-has 823
-has 574
-has 615
-has 393
-has 897
-has 195
-has 74
-has 822
-has 191
-has 341
-has 710
-has 432
-has 268
-has 96
-has 873
-has 825
-has 372
-has 826
-has 335
-has 550
-has 40
-has 694
-has 470
-has 205
-has 425
-has 593
-has 347
-has 642
-has 486
-has 552
-has 876
-has 532
-has 846
-has 259
-has 314
-has 549
-has 925
-has 275
-has 943
-has 113
-has 933
-has 489
-has 48
-has 266
-has 859
-has 331
-has 395
-has 338
-has 991
-has 966
-has 720
-has 90
-has 477
-has 328
-has 617
-has 130
-has 104
-has 411
-has 967
-has 304
-has 846
-has 431
-has 337
-has 638
-has 463
-has 179
-has 585
-has 10
-has 780
-has 324
-has 899
-has 98
-has 882
-has 223
-has 615
-has 550
-has 647
-has 204
-has 344
-has 94
-has 199
-has 10
-has 649
-has 519
-has 830
-has 787
-has 55
-has 518
-has 640
-has 185
-has 445
-has 515
-has 306
-has 640
-has 266
-has 503
-has 153
-has 409
-has 802
-has 681
-has 745
-has 386
-has 556
-has 667
-has 67
-has 623
-has 207
-has 254
-has 711
-has 68
-has 481
-has 899
-has 68
-has 874
-has 105
-has 836
-has 780
-has 817
-has 806
-has 675
-has 124
-has 68
-has 368
-has 596
-has 878
-has 385
-has 790
-has 242
-has 956
-has 113
-has 398
-has 239
-has 401
-has 661
-has 347
-has 812
-has 453
-has 981
-has 452
-has 207
-has 580
-has 800
-has 805
-has 573
-has 702
-has 545
-has 447
-has 431
-has 535
-has 428
-has 721
-has 334
-has 601
-has 127
-has 557
-has 678
-has 18
-has 958
-has 788
-has 681
-has 832
-has 963
-has 297
-has 599
-has 669
-has 243
-has 498
-has 405
-has 527
-has 292
-has 383
-has 798
-has 365
-has 599
-has 96
-has 323
-has 261
-has 794
-has 893
-has 334
-has 936
-has 360
-has 706
-has 528
-has 390
-has 64
-has 636
-has 275
-has 105
-has 668
-has 794
-has 494
-has 193
-has 770
-has 374
-has 615
-has 503
-has 206
-has 902
-has 460
-has 47
-has 43
-has 902
-has 243
-has 46
-has 922
-has 968
-has 2
-has 32
-has 234
-has 417
-has 223
-has 65
-has 454
-has 743
-has 472
-has 258
-has 767
-has 210
-has 606
-has 605
-has 224
-has 301
-has 857
-has 496
-has 888
-has 605
-has 594
-has 226
-has 479
-has 818
-has 55
-has 890
-has 434
-has 288
-has 893
-has 456
-has 463
-has 483
-has 466
-has 94
-has 635
-has 244
-has 869
-has 251
-has 572
-has 429
-has 738
-has 27
-has 901
-has 358
-has 735
-has 995
-has 297
-has 853
-has 822
-has 741
-has 46
-has 746
-has 156
-has 318
-has 374
-has 775
-has 551
-has 414
-has 363
-has 332
-has 630
-has 167
-has 849
-has 17
-has 793
-has 284
-has 742
-has 512
-has 969
-has 979
-has 430
-has 606
-has 923
-has 459
-has 866
-has 568
-has 323
-has 121
-has 84
-has 58
-has 594
-has 579
-has 464
-has 153
-has 411
-has 716
-has 327
-has 149
-has 719
-has 858
-has 691
-has 455
-has 887
-has 240
-has 797
-has 571
-has 177
-has 884
-has 564
-has 451
-has 254
-has 783
-has 883
-has 842
-has 312
-has 438
-has 821
-has 696
-has 451
-has 805
-has 452
-has 431
-has 331
-has 305
-has 736
-has 51
-has 701
-has 697
-has 604
-has 77
-has 955
-has 593
